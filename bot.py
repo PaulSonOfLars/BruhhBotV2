@@ -120,6 +120,7 @@ def dumpjson(filename, var):
     with open(filename, 'w') as f:
         json.dump(var, f)
 
+
 def owner_admin_mod_check(bot, chat_id, chat_idstr, user_id):
     promoted = loadjson('./promoted.json', "promoted.json")
     if chat_idstr in promoted:
@@ -132,6 +133,7 @@ def owner_admin_mod_check(bot, chat_id, chat_idstr, user_id):
             return "true"
         else:
             return "false"
+            
 def owner_check(bot, chat_id, user_id):
     if user_id == int(config['ADMIN']['id']):
         return "true"
@@ -171,8 +173,8 @@ def start(bot, update):
         bot.sendChatAction(chat_id=update.message.chat_id,
                            action=ChatAction.TYPING)
         bot.sendMessage(chat_id=update.message.chat_id,
-                        text="Hi. I'm BruhhBot! You can use me to do lots of cool stuff")
-
+                        text="Hi. I'm XManager! You can use me to do lots of cool stuff")
+                        
         helpall = standardhelp + help_help
 
         bot.sendMessage(chat_id=update.message.chat_id,
