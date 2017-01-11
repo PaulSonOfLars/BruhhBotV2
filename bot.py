@@ -219,7 +219,7 @@ def help_message(bot, update, args):
                 if args[0] == "modlist":
                     helpme = modlist_help
                 if args[0] == "save":
-                    helpme = save_help + save_from_help
+                    helpme = save_help
                 if args[0] == "get":
                     helpme = get_help
                 if args[0] == "lock":
@@ -264,11 +264,13 @@ def add(bot, update):
                     moderated[chat_idstr] = chat_id
                     bot.sendMessage(chat_id=update.message.chat_id,
                                     text=update.message.chat.title + " added to my records!")
+                    return
                 else:
                     bot.sendMessage(chat_id=update.message.chat_id,
                                     text=update.message.chat.title + " is already in my records")
                 with open("moderated.json", 'w') as f:
                     json.dump(moderated, f)
+                    return
             else:
                 bot.sendMessage(chat_id=update.message.chat_id,
                                 text="I need to be an admin to moderate groups!")
@@ -888,11 +890,10 @@ def unbanall(bot, update, args):
                         if user_id:
                             if owner_admin_mod_check(bot, chat_id, chat_idstr, int(user_id)) != "true":
                                 unbanuser = str_args.replace("@", "")
-                                bot.unbanChatMember(chat_id, user_id)
                                 if user_id in banbase["global"]:
                                     banbase["global"].remove(user_id)
                                     bot.sendMessage(chat_id=update.message.chat_id,
-                                                        text="User @" + unbanuser + " globally unbanned from all my chats!")
+                                                    text="User @" + unbanuser + " globally unbanned from all my chats!")
                                     for string, chat in moderated.items():
                                         bot.unbanChatMember(chat, user_id)
                                 else:
@@ -945,7 +946,6 @@ def banall(bot, update, args):
                         if user_id:
                             if owner_admin_mod_check(bot, chat_id, chat_idstr, int(user_id)) != "true":
                                 banuser = str_args.replace("@", "")
-                                bot.kickChatMember(chat_id, user_id)
                                 banbase["global"] = banbase["global"] + [user_id]
                                 bot.sendMessage(chat_id=update.message.chat_id,
                                                 text="User @" + banuser + " globally banned from all my chats!")
