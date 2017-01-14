@@ -1898,7 +1898,8 @@ def idme(bot, update, args):
                 bot.sendMessage(chat_id=update.message.chat_id,
                                 text="The ID of " + update.message.chat.title + " is " + chat_idstr)
 
-
+def runbruhh(bot, update):
+    update.message.reply_text("not so fast...")
 
 def button(bot, update, direct=True):
         global welcome
@@ -1975,6 +1976,7 @@ banlist_handler = CommandHandler('banlist', getbanlist)
 gbanlist_handler = CommandHandler('gbanlist', getglobalbanlist)
 resetwarn_handler = CommandHandler('reset', resetwarn, pass_args=True)
 welcome_handler = CommandHandler('welcome', welcomeme, pass_args=True)
+run_handler = CommandHandler('runs', runbruhh)
 
 dispatcher.add_handler(start_handler)
 dispatcher.add_handler(help_handler)
@@ -2006,7 +2008,7 @@ dispatcher.add_handler(banlist_handler)
 dispatcher.add_handler(gbanlist_handler)
 dispatcher.add_handler(resetwarn_handler)
 dispatcher.add_handler(welcome_handler)
-
+dispatcher.add_handler(run_handler)
 
 dispatcher.add_handler(MessageHandler([Filters.all], receiveMessage))
 dispatcher.add_handler(CallbackQueryHandler(button))
